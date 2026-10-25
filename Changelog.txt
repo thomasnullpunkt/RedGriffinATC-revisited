@@ -1,3 +1,8 @@
+Changelog 2.5.0 - 25 October 2026
+
+- Add two visual-only F-15 escort models for airborne squawk 7500 when the separate FlightGear F-15 aircraft is installed
+- Add optional model dependency checks and gracefully retain the ATC emergency response if the F-15 model is unavailable
+
 Changelog 2.4.0 - 18 October 2026
 
 - Recognize emergency squawks 7500, 7600 and 7700 and issue distinct simulated ATC acknowledgements

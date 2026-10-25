@@ -2,7 +2,7 @@
 
 ### A speaking Air Traffic Controller addon for FlightGear
 
-#### Version 2.4.0 - Community update, 18 October 2026
+#### Version 2.5.0 - F-15 emergency escort, 25 October 2026
 
 ### Main features:
 
@@ -12,6 +12,7 @@
 * Festival Speech Synthesis System support
 * Squawking
 * Recognition and simulated ATC acknowledgements for emergency squawks 7500, 7600 and 7700
+* Optional visual F-15 escorts for airborne squawk 7500 (requires a separate F-15 aircraft installation)
 * Approach and slope monitor
 * Speech synthesis of messages through native FlightGear speech synthesizer
 * ATC can be operated both with mouse and keyboard
@@ -254,6 +255,13 @@ addon:
   asking you to restore the routine assigned code until the emergency squawk is
   cleared. These messages are for FlightGear simulation only and are not real
   aviation guidance.
+
+  When airborne, an active **7500** squawk also brings two visual-only F-15 models
+  in from behind to hold an escort position. This requires the FlightGear F-15
+  aircraft to be installed separately so
+  <code>Aircraft/F-15/Models/f15c.ac</code> is available in the aircraft search
+  path. The aircraft model is not included in this add-on download. These escort
+  models do not have independent flight dynamics or weapon functionality.
 
 * **Open dialog at startup** *(possible values: On, Off)* - Enable or disable the
   opening of Red Griffin ATC dialog at FlightGear startup.

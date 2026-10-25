@@ -9,7 +9,7 @@
 #
 # Main program
 #
-# Version 2.4.0 - 18 October 2026
+# Version 2.5.0 - 25 October 2026
 #
 # Red Griffin ATC is an Open Source project and it is licensed
 # under the Gnu Public License v3 (GPLv3)
@@ -357,6 +357,11 @@ var rgatcTimer = maketimer(timer_interval, func()
             emergencySquawkAnnouncedCode = "";
             squawk_check_counter = 0;
             setSquawkIdentMode(squawk_ident_off);
+
+            if(emergencySquawkCode == "7500")
+                startF15Escort();
+            else
+                endF15Escort();
         }
 
         if(emergencySquawkCode != "")
@@ -391,6 +396,11 @@ var rgatcTimer = maketimer(timer_interval, func()
             }
         }
     }
+    else if(f15EscortState != "idle")
+        endF15Escort();
+
+    if(squawkingMode == "On" and emergencySquawkCode == "7500" and f15EscortState == "idle")
+        startF15Escort();
 });
 
 var initRgATC = func()
@@ -475,6 +485,8 @@ var disableAtc = func()
 {
     if(rgatcTimer.isRunning)
         rgatcTimer.stop();
+
+    endF15Escort();
 
     RGAtcEnabled = 0;
 

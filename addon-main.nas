@@ -9,7 +9,7 @@
 #
 # Launcher script
 #
-# Version 2.4.0 - 18 October 2026
+# Version 2.5.0 - 25 October 2026
 #
 # Red Griffin ATC is an Open Source project and it is licensed
 # under the Gnu Public License v3 (GPLv3)
@@ -19,7 +19,7 @@ var main = func(addon)
 {
     print("Installing Red Griffin ATC addon from ", addon.basePath);
 
-    foreach(var script; ['globals.nas', 'settings.nas', 'rgatc.nas'])
+    foreach(var script; ['globals.nas', 'settings.nas', 'rgatc.nas', 'f15-escort.nas'])
     {
         var fname = addon.basePath ~ "/" ~ script;
 
@@ -27,6 +27,8 @@ var main = func(addon)
 
         io.load_nasal(fname, "RgATC");
     }
+
+    RgATC.configureF15Escort(addon.basePath);
     
     RgATC.loadSettings();
     

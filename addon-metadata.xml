@@ -9,7 +9,7 @@
 
  addon-metadata.xml
 
- Version 2.4.0 - 18 October 2026
+ Version 2.5.0 - 25 October 2026
 
  Red Griffin ATC is an Open Source project and it is licensed
  under the Gnu Public License v3 (GPLv3)
@@ -25,7 +25,7 @@
   <addon>
     <identifier type="string">org.flightgear.addons.RGATC</identifier>
     <name type="string">Red Griffin ATC</name>
-    <version type="string">2.4.0</version>
+    <version type="string">2.5.0</version>
 
     <authors>
       <author>
@@ -50,7 +50,8 @@
 
     <long-description type="string">
       Speaking Air Traffic Controller simulator for FlightGear. It manages ground operations,
-      take off, approach, ILS, landing procedures, squawking and CTR transitions.
+      take off, approach, ILS, landing procedures, squawking and CTR transitions, and offers
+      optional visual F-15 escorts for airborne 7500 squawks when the aircraft is installed.
     </long-description>
 
     <license>
