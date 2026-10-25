@@ -71,11 +71,11 @@
 
     <urls>
       <home-page type="string">
-        https://thomasnullpunkt.github.io/RedGriffinATC/
+        https://thomasnullpunkt.github.io/RedGriffinATC-revisited/
       </home-page>
 
       <download type="string">
-        https://thomasnullpunkt.github.io/RedGriffinATC/
+        https://thomasnullpunkt.github.io/RedGriffinATC-revisited/
       </download>
 
       <support type="string">
@@ -83,7 +83,7 @@
       </support>
 
       <code-repository type="string">
-        https://github.com/thomasnullpunkt/RedGriffinATC
+        https://github.com/thomasnullpunkt/RedGriffinATC-revisited
       </code-repository>
     </urls>
 

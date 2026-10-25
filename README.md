@@ -43,13 +43,13 @@
 * Buttons for aborting approach, ILS and landing procedures
 * And a lot more
 
-Download the ready-to-install package from the [Red Griffin ATC download page](https://thomasnullpunkt.github.io/RedGriffinATC/).
+Download the ready-to-install package from the [Red Griffin ATC download page](https://thomasnullpunkt.github.io/RedGriffinATC-revisited/).
 
 
 ## How to install Red Griffin ATC
 
 * Download the <code>.zip</code> or <code>.tar.gz</code> package from the
-  [Red Griffin ATC download page](https://thomasnullpunkt.github.io/RedGriffinATC/).
+  [Red Griffin ATC download page](https://thomasnullpunkt.github.io/RedGriffinATC-revisited/).
 * Unpack the archive with a proper command (<code>zip</code> or <code>tar</code>) or utility in a convenient place
   of your disk
 * It will be created a directory named <code>RedGriffinATC</code> containing the addon
