@@ -2896,10 +2896,32 @@ var showPopup = func(text)
     window.write(text);
 }
 
+var lastAtcMessageReplyVariant = {};
+
+var getAtcMessageReplyFormat = func(replyName)
+{
+    var variants = atcMessageReplyVariants[replyName];
+
+    if(variants == nil or size(variants) == 0)
+        return atcMessageReply[replyName];
+
+    var variantCount = size(variants);
+    var variantIndex = int(rand() * variantCount);
+    var previousVariantIndex = lastAtcMessageReplyVariant[replyName];
+
+    if(variantCount > 1 and previousVariantIndex != nil and variantIndex == previousVariantIndex)
+        variantIndex = (variantIndex + 1) % variantCount;
+
+    lastAtcMessageReplyVariant[replyName] = variantIndex;
+
+    return variants[variantIndex];
+}
+
 var atcReplyToRequest = func(messageType)
 {
     var text = "";
     var voice = "";
+    var replyFormat = "";
     var signal = -1;
     var extraText = "";
     var extraVoice = "";
@@ -2954,14 +2976,16 @@ var atcReplyToRequest = func(messageType)
                             );
         }
 
-        text = sprintf(atcMessageReply.radio_check,
+        replyFormat = getAtcMessageReplyFormat("radio_check");
+
+        text = sprintf(replyFormat,
                     atcCallsignText,
                     selectedComStationName,
                     sprintf("%d", signal),
                     extraText
                );
 
-        voice = sprintf(atcMessageReply.radio_check,
+        voice = sprintf(replyFormat,
                     atcCallsignVoice,
                     selectedComStationName,
                     spellToPhonetic(sprintf("%d", signal), spell_number),
@@ -3074,14 +3098,30 @@ var atcReplyToRequest = func(messageType)
 
         multiplayMessageType = message_type_local;
 
-        if(selectedComAirportId == property_ClosestAirportId.getValue())
+        if(property_Aircraft_AltitudeAglFeet.getValue() > min_ground_altitude)
+        {
+            text = sprintf(atcMessageReply.engine_start_while_airborne,
+                        atcCallsignText,
+                        selectedComStationName
+                   );
+
+            voice = sprintf(atcMessageReply.engine_start_while_airborne,
+                        atcCallsignVoice,
+                        selectedComStationName
+                    );
+
+            pilotResponseType = message_roger;
+        }
+        else if(selectedComAirportId == property_ClosestAirportId.getValue())
         {
             airport = airportinfo(selectedComAirportId);
             (airportRunwayInUse, airportRunwayInUseILS) = runwayInUse(airport, runway_take_off);
 
             (qnhValue, qnhLiteralValue) = getQNH();
 
-            text = sprintf(atcMessageReply.engine_start,
+            replyFormat = getAtcMessageReplyFormat("engine_start");
+
+            text = sprintf(replyFormat,
                         atcCallsignText,
                         selectedComStationName,
                         airportRunwayInUse,
@@ -3089,7 +3129,7 @@ var atcReplyToRequest = func(messageType)
                         qnhValue
                    );
 
-            voice = sprintf(atcMessageReply.engine_start,
+            voice = sprintf(replyFormat,
                         atcCallsignVoice,
                         selectedComStationName,
                         spellToPhonetic(airportRunwayInUse, spell_runway),
@@ -3153,7 +3193,9 @@ var atcReplyToRequest = func(messageType)
                 departureInformation = phoneticLetter[letter];
             }
 
-            text = sprintf(atcMessageReply.departure_information,
+            replyFormat = getAtcMessageReplyFormat("departure_information");
+
+            text = sprintf(replyFormat,
                         atcCallsignText,
                         selectedComStationName,
                         airportRunwayInUse,
@@ -3162,7 +3204,7 @@ var atcReplyToRequest = func(messageType)
                         departureInformation
                     );
 
-            voice = sprintf(atcMessageReply.departure_information,
+            voice = sprintf(replyFormat,
                         atcCallsignVoice,
                         selectedComStationName,
                         spellToPhonetic(airportRunwayInUse, spell_runway),
@@ -3203,7 +3245,21 @@ var atcReplyToRequest = func(messageType)
 
         multiplayMessageType = message_type_important;
 
-        if(selectedComAirportId == property_ClosestAirportId.getValue())
+        if(property_Aircraft_AltitudeAglFeet.getValue() > min_ground_altitude)
+        {
+            text = sprintf(atcMessageReply.taxi_while_airborne,
+                        atcCallsignText,
+                        selectedComStationName
+                   );
+
+            voice = sprintf(atcMessageReply.taxi_while_airborne,
+                        atcCallsignVoice,
+                        selectedComStationName
+                    );
+
+            pilotResponseType = message_roger;
+        }
+        else if(selectedComAirportId == property_ClosestAirportId.getValue())
         {
             var towerRadio = getRadio(radio_station_type_tower, radio_type_any);
             var reportTag = "";
@@ -3274,7 +3330,9 @@ var atcReplyToRequest = func(messageType)
                             );
             }
 
-            text = sprintf(atcMessageReply.request_taxi,
+            replyFormat = getAtcMessageReplyFormat("request_taxi");
+
+            text = sprintf(replyFormat,
                         atcCallsignText,
                         selectedComStationName,
                         airportRunwayInUse,
@@ -3282,7 +3340,7 @@ var atcReplyToRequest = func(messageType)
                         extraText
                    );
 
-            voice = sprintf(atcMessageReply.request_taxi,
+            voice = sprintf(replyFormat,
                         atcCallsignVoice,
                         selectedComStationName,
                         spellToPhonetic(airportRunwayInUse, spell_runway),
@@ -3347,16 +3405,18 @@ var atcReplyToRequest = func(messageType)
                 extraVoice = "";
             }
 
-            if(currentRunway == airportRunwayInUse)
+            if(currentRunway == airportRunwayInUse and nearRunway == 0 and alignedOnRunway == 1)
             {
-                text = sprintf(atcMessageReply.ready_departure,
+                replyFormat = getAtcMessageReplyFormat("ready_departure");
+
+                text = sprintf(replyFormat,
                             atcCallsignText,
                             selectedComStationName,
                             extraText,
                             airportRunwayInUse
                        );
 
-                voice = sprintf(atcMessageReply.ready_departure,
+                voice = sprintf(replyFormat,
                             atcCallsignVoice,
                             selectedComStationName,
                             extraVoice,
@@ -3382,15 +3442,49 @@ var atcReplyToRequest = func(messageType)
 
                 pilotResponseType = message_wait_for_departure;
             }
-            else
+            else if(currentRunway == airportRunwayInUse and nearRunway == 0 and alignedOnRunway == 0)
             {
-                text = sprintf(atcMessageReply.wrong_runway,
+                text = sprintf(atcMessageReply.align_for_departure,
                             atcCallsignText,
                             selectedComStationName,
                             airportRunwayInUse
                        );
 
-                voice = sprintf(atcMessageReply.wrong_runway,
+                voice = sprintf(atcMessageReply.align_for_departure,
+                            atcCallsignVoice,
+                            selectedComStationName,
+                            spellToPhonetic(airportRunwayInUse, spell_runway)
+                        );
+
+                pilotResponseType = message_roger;
+            }
+            else if(currentRunway != "" and currentRunway != airportRunwayInUse)
+            {
+                replyFormat = getAtcMessageReplyFormat("wrong_runway");
+
+                text = sprintf(replyFormat,
+                            atcCallsignText,
+                            selectedComStationName,
+                            airportRunwayInUse
+                       );
+
+                voice = sprintf(replyFormat,
+                            atcCallsignVoice,
+                            selectedComStationName,
+                            spellToPhonetic(airportRunwayInUse, spell_runway)
+                        );
+
+                pilotResponseType = message_roger;
+            }
+            else
+            {
+                text = sprintf(atcMessageReply.hold_short_for_departure,
+                            atcCallsignText,
+                            selectedComStationName,
+                            airportRunwayInUse
+                       );
+
+                voice = sprintf(atcMessageReply.hold_short_for_departure,
                             atcCallsignVoice,
                             selectedComStationName,
                             spellToPhonetic(airportRunwayInUse, spell_runway)
@@ -3720,13 +3814,15 @@ var atcReplyToRequest = func(messageType)
     }
     else if(messageType == message_approach_route_instructions)
     {
-        text = sprintf(atcMessageReply.approach_route_instructions,
+        replyFormat = getAtcMessageReplyFormat("approach_route_instructions");
+
+        text = sprintf(replyFormat,
                     atcCallsignText,
                     selectedComStationName,
                     approachRouteTextInstructions
                 );
 
-        voice = sprintf(atcMessageReply.approach_route_instructions,
+        voice = sprintf(replyFormat,
                     atcCallsignVoice,
                     selectedComStationName,
                     approachRouteVoiceInstructions
@@ -4063,11 +4159,11 @@ var atcReplyToRequest = func(messageType)
         multiplayMessageType = message_type_important;
 
         if(code == "7500")
-            message = atcMessageReply.emergency_7500;
+            message = getAtcMessageReplyFormat("emergency_7500");
         else if(code == "7600")
-            message = atcMessageReply.emergency_7600;
+            message = getAtcMessageReplyFormat("emergency_7600");
         else if(code == "7700")
-            message = atcMessageReply.emergency_7700;
+            message = getAtcMessageReplyFormat("emergency_7700");
         else
             return;
 
@@ -4127,6 +4223,7 @@ var atcAutoMessage = func()
 {
     var text = "";
     var voice = "";
+    var replyFormat = "";
     var minCruiseAltidude = getMinCruiseAltitude();
 
     if(isRadioServiceable() == 0)
@@ -4140,38 +4237,98 @@ var atcAutoMessage = func()
     {
         multiplayMessageType = message_type_important;
 
-        text = sprintf(atcMessageReply.cleared_for_takeoff,
-                    atcCallsignText,
-                    selectedComStationName,
-                    airportRunwayInUse,
-                    getMeteoText(meteo_type_qnh, 0)
-                );
+        if(currentRunway != airportRunwayInUse or nearRunway == 1 or alignedOnRunway == 0)
+        {
+            if(currentRunway != "" and currentRunway != airportRunwayInUse)
+            {
+                replyFormat = getAtcMessageReplyFormat("wrong_runway");
 
-        voice = sprintf(atcMessageReply.cleared_for_takeoff,
-                    atcCallsignVoice,
-                    selectedComStationName,
-                    spellToPhonetic(airportRunwayInUse, spell_runway),
-                    getMeteoText(meteo_type_qnh, 1)
-                );
+                text = sprintf(replyFormat,
+                            atcCallsignText,
+                            selectedComStationName,
+                            airportRunwayInUse
+                       );
 
-        aircraft_status = status_cleared_for_takeoff;
+                voice = sprintf(replyFormat,
+                            atcCallsignVoice,
+                            selectedComStationName,
+                            spellToPhonetic(airportRunwayInUse, spell_runway)
+                        );
+            }
+            else if(currentRunway == airportRunwayInUse and nearRunway == 0 and alignedOnRunway == 0)
+            {
+                text = sprintf(atcMessageReply.align_for_departure,
+                            atcCallsignText,
+                            selectedComStationName,
+                            airportRunwayInUse
+                       );
 
-        cancelAtcPendingMessage();
+                voice = sprintf(atcMessageReply.align_for_departure,
+                            atcCallsignVoice,
+                            selectedComStationName,
+                            spellToPhonetic(airportRunwayInUse, spell_runway)
+                        );
+            }
+            else
+            {
+                text = sprintf(atcMessageReply.hold_short_for_departure,
+                            atcCallsignText,
+                            selectedComStationName,
+                            airportRunwayInUse
+                       );
 
-        setAtcAutoCallbackAfterSeconds(max_departure_secs);
+                voice = sprintf(atcMessageReply.hold_short_for_departure,
+                            atcCallsignVoice,
+                            selectedComStationName,
+                            spellToPhonetic(airportRunwayInUse, spell_runway)
+                        );
+            }
 
-        departure_extra_time = 0;
+            aircraft_status = status_going_around;
+            atc_callback_wait_seconds = auto_reply_off;
+            atc_callback_seconds_counter = 0;
+            pilotResponseType = message_roger;
 
-        approvedCtr = currentCtr;
-        altitude_check_counter = 0;
+            setApproachButtons();
+            setCtrButtons();
+        }
+        else
+        {
+            replyFormat = getAtcMessageReplyFormat("cleared_for_takeoff");
 
-        aircraftIsDeparting = 1;
+            text = sprintf(replyFormat,
+                        atcCallsignText,
+                        selectedComStationName,
+                        airportRunwayInUse,
+                        getMeteoText(meteo_type_qnh, 0)
+                    );
 
-        setApproachButtons();
+            voice = sprintf(replyFormat,
+                        atcCallsignVoice,
+                        selectedComStationName,
+                        spellToPhonetic(airportRunwayInUse, spell_runway),
+                        getMeteoText(meteo_type_qnh, 1)
+                    );
 
-        setCtrButtons();
+            aircraft_status = status_cleared_for_takeoff;
 
-        pilotResponseType = message_cleared_take_off;
+            cancelAtcPendingMessage();
+
+            setAtcAutoCallbackAfterSeconds(max_departure_secs);
+
+            departure_extra_time = 0;
+
+            approvedCtr = currentCtr;
+            altitude_check_counter = 0;
+
+            aircraftIsDeparting = 1;
+
+            setApproachButtons();
+
+            setCtrButtons();
+
+            pilotResponseType = message_cleared_take_off;
+        }
     }
     else if(aircraft_status == status_cleared_for_takeoff)
     {
@@ -4227,7 +4384,7 @@ var atcAutoMessage = func()
 
         var radio = getCtrRadio(currentCtr);
 
-        if(radio.frequency != selectedComFrequency)
+        if(radio != nil and radio.frequency != selectedComFrequency)
         {
             extraText = sprintf(atcMessageReply.contact_radio,
                             normalizeRadioStationName(radio.name),
@@ -4261,7 +4418,9 @@ var atcAutoMessage = func()
             }
         }
 
-        text = sprintf(atcMessageReply.leaving_airport,
+        replyFormat = getAtcMessageReplyFormat("leaving_airport");
+
+        text = sprintf(replyFormat,
                     atcCallsignText,
                     selectedComStationName,
                     getMeteoText(meteo_type_wind, 0),
@@ -4269,7 +4428,7 @@ var atcAutoMessage = func()
                     extraText
                 );
 
-        voice = sprintf(atcMessageReply.leaving_airport,
+        voice = sprintf(replyFormat,
                     atcCallsignVoice,
                     selectedComStationName,
                     getMeteoText(meteo_type_wind, 1),
@@ -4314,13 +4473,15 @@ var atcAutoMessage = func()
 
         if(approachingRunway != "" and approachingRunway != landingRunway)
         {
-            text = sprintf(atcMessageReply.wrong_approach_runway,
+            replyFormat = getAtcMessageReplyFormat("wrong_approach_runway");
+
+            text = sprintf(replyFormat,
                         atcCallsignText,
                         selectedComStationName,
                         landingRunway
                     );
 
-            voice = sprintf(atcMessageReply.wrong_approach_runway,
+            voice = sprintf(replyFormat,
                         atcCallsignVoice,
                         selectedComStationName,
                         spellToPhonetic(landingRunway, spell_runway)
@@ -4345,13 +4506,15 @@ var atcAutoMessage = func()
 
         multiplayMessageType = message_type_important;
 
-        text = sprintf(atcMessageReply.welcome_to_airport,
+        replyFormat = getAtcMessageReplyFormat("welcome_to_airport");
+
+        text = sprintf(replyFormat,
                     atcCallsignText,
                     selectedComStationName,
                     airport.name
                 );
 
-        voice = sprintf(atcMessageReply.welcome_to_airport,
+        voice = sprintf(replyFormat,
                     atcCallsignVoice,
                     selectedComStationName,
                     airport.name
@@ -6638,6 +6801,9 @@ var getCtrRadio = func(ctr)
         radioType = radio_station_type_departure;
 
     radio = getAirportRadio(airportinfo(ctr.ident), radioType);
+
+    if(radio == nil)
+        return nil;
 
     if(getRadioType(radio.ident) != radioType)
         radio = getAirportRadio(airportinfo(ctr.ident), radio_station_type_approach);

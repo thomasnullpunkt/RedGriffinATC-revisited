@@ -9,7 +9,7 @@
 #
 # Launcher script
 #
-# Version 2.5.0 - 25 October 2026
+# Version 2.6.0 - 26 October 2026
 #
 # Red Griffin ATC is an Open Source project and it is licensed
 # under the Gnu Public License v3 (GPLv3)

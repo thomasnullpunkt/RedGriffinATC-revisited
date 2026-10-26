@@ -2,7 +2,7 @@
 
 ### A speaking Air Traffic Controller addon for FlightGear
 
-#### Version 2.5.0 - F-15 emergency escort, 25 October 2026
+#### Version 2.6.0 - Smarter, context-aware ATC, 26 October 2026
 
 ### Main features:
 
@@ -13,6 +13,7 @@
 * Squawking
 * Recognition and simulated ATC acknowledgements for emergency squawks 7500, 7600 and 7700
 * Optional visual F-15 escorts for airborne squawk 7500 (requires a separate F-15 aircraft installation)
+* Context-aware ground and takeoff checks, with varied radio phraseology that works offline
 * Approach and slope monitor
 * Speech synthesis of messages through native FlightGear speech synthesizer
 * ATC can be operated both with mouse and keyboard

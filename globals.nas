@@ -503,8 +503,74 @@ var atcMessageReply = {
                         check_transponder:"%s, %s. Squawk %sIDENT",
                         emergency_7500:"%s, %s. Squawk %s observed. If able, acknowledge with IDENT and request assistance in the ATC dialog.",
                         emergency_7600:"%s, %s. Squawk %s observed; radio failure noted. Continue using the simulator's lost-communications procedure.",
-                        emergency_7700:"%s, %s. Squawk %s observed. State the nature of your emergency and intentions if able."
+                         emergency_7700:"%s, %s. Squawk %s observed. State the nature of your emergency and intentions if able.",
+                         engine_start_while_airborne:"%s, %s. Start-up approval is only available on the ground at the departure airport.",
+                         taxi_while_airborne:"%s, %s. You are airborne; taxi clearance is not available. Land and contact ground when on the airport surface.",
+                         hold_short_for_departure:"%s, %s. Hold short of runway %s and report ready to line up.",
+                         align_for_departure:"%s, %s. Align with runway %s before requesting takeoff clearance."
                       };
+
+var atcMessageReplyVariants = {
+                            radio_check:[
+                                "%s, %s, readable at signal %s.%s",
+                                "%s, %s. Your signal is %s.%s",
+                                "%s, %s, your transmission is coming through at %s.%s"
+                            ],
+                            engine_start:[
+                                "%s, %s. Start-up approved for runway %s. %s %s. Call ground when ready to taxi.",
+                                "%s, %s, you may start. Runway %s is in use; set %s to %s and request taxi when ready."
+                            ],
+                            departure_information:[
+                                "%s, %s. Departure runway %s; %s. Time %s, information %s.",
+                                "%s, %s. Runway %s is in use. %s. The time is %s; information %s."
+                            ],
+                            request_taxi:[
+                                "%s, %s. Taxi to hold short of runway %s. %s%s",
+                                "%s, %s, runway %s is in use. Taxi and hold short; %s%s",
+                                "%s, %s. Taxi to the holding point for runway %s. %s%s"
+                            ],
+                            ready_departure:[
+                                "%s, %s.\n%sRunway %s, stand by for departure.",
+                                "%s, %s. %sExpect departure clearance for runway %s.",
+                                "%s, %s. %sRunway %s, prepare for departure."
+                            ],
+                            cleared_for_takeoff:[
+                                "%s, %s. Runway %s, %s, cleared for takeoff.",
+                                "%s, %s, takeoff clearance: runway %s, %s."
+                            ],
+                            leaving_airport:[
+                                "%s, %s. Current conditions: %s. Climb to %s feet and continue on your flight plan.\n%s",
+                                "%s, %s. For departure, %s. Climb and maintain %s feet; then follow your flight plan.\n%s"
+                            ],
+                            approach_route_instructions:[
+                                "%s, %s. Approach instructions: %s",
+                                "%s, %s, follow this approach route: %s"
+                            ],
+                            wrong_runway:[
+                                "%s, %s. Runway %s is active. Taxi to it and hold short; report when ready.",
+                                "%s, %s. That is not the active departure runway. Use runway %s and report ready."
+                            ],
+                            wrong_approach_runway:[
+                                "%s, %s, you are lined up with the wrong runway. Landing runway is %s. Go around and request new instructions.",
+                                "%s, %s. Landing runway is %s; discontinue this approach and request a new clearance."
+                            ],
+                            welcome_to_airport:[
+                                "%s, %s, welcome to %s. Vacate at the first taxiway and taxi to parking.",
+                                "%s, %s, welcome to %s. Exit the runway when able, then taxi to the apron."
+                            ],
+                            emergency_7500:[
+                                "%s, %s. Squawk %s received. If able, IDENT and use the ATC dialog to request assistance.",
+                                "%s, %s. Squawk %s observed. If safe, confirm your intentions and request help in the ATC dialog."
+                            ],
+                            emergency_7600:[
+                                "%s, %s. Squawk %s received; radio failure acknowledged. Continue with FlightGear's lost-communications procedure.",
+                                "%s, %s. We have your %s squawk and have noted the radio failure. Follow the simulator's lost-communications procedure."
+                            ],
+                            emergency_7700:[
+                                "%s, %s. Squawk %s received. If able, state the nature of the emergency and your intentions.",
+                                "%s, %s. General emergency squawk %s observed. Tell us what assistance you need when able."
+                            ]
+                          };
 
 var atcMessageAction = {
                         atc_message:"%s, This is %s.%s",
