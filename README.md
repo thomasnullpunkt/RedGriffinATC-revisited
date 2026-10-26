@@ -2,7 +2,15 @@
 
 ### A speaking Air Traffic Controller addon for FlightGear
 
-#### Version 2.6.0 - Smarter, context-aware ATC, 26 October 2026
+#### Version 2.6.1 - Unofficial remaster, 26 October 2026
+
+## Project status
+
+This repository and its releases are an **unofficial remaster** of the original
+Red Griffin ATC add-on for FlightGear. The original add-on was created by
+Antonello Biancalana (Red Griffin, IK0TOJ). This is a separate remastered
+release, not an official release of the original project. See the
+[original project page](https://sourceforge.net/projects/red-griffin-atc/).
 
 ### Main features:
 
@@ -779,10 +787,10 @@ particular to those participating to [Red Griffin ATC](https://forum.flightgear.
 thread in [FlightGear forum](https://forum.flightgear.org)
 
 
-#### Note
+#### Original author's note
 
-Red Griffin ATC has been developed and written by Antonello Biancalana (Red
-Griffin, IK0TOJ) in Nasal language and it has been tested in FlightGear
+The original Red Griffin ATC was developed and written by Antonello Biancalana
+(Red Griffin, IK0TOJ) in Nasal language and it was tested in FlightGear
 2019.1.1, 2019.1.2, 2020.3.x and 2020.4.0 git, specifically in my Fedora Linux
 FC33. I understand there can be bugs or the ATC procedures may be formally
 incorrect. On this regard, any feedback, suggestion, criticism and hint on how
@@ -820,8 +828,12 @@ addon.
 
 
 
-Red Griffin ATC is hosted in [https://sourceforge.net/projects/red-griffin-atc/](https://sourceforge.net/projects/red-griffin-atc/)
+## Lineage and status
 
-Red Griffin ATC (C) 2019-2021 Antonello Biancalana, Red Griffin, IK0TOJ
-Red Griffin ATC Remastered version.
-This is not an official release, I created it myself because i felt unsatisfied from the real one.
+The original Red Griffin ATC is hosted at
+[SourceForge](https://sourceforge.net/projects/red-griffin-atc/).
+Original work: Red Griffin ATC (C) 2019-2021 Antonello Biancalana,
+Red Griffin, IK0TOJ.
+
+This repository is an **unofficial remaster** of that original
+add-on. It is not an official release of the original project.

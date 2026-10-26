@@ -4,13 +4,13 @@
 
  Red Griffin ATC - Speaking Air Traffic Controller for FlightGear
 
- Written and developer by Antonello Biancalana (Red Griffin, IK0TOJ)
+ Original author: Antonello Biancalana (Red Griffin, IK0TOJ)
 
  Copyright (C) 2019-2021 Antonello Biancalana
 
  about-dialog.xml
 
- Version 2.5.0 - 25 October 2026
+ Version 2.6.1 - 26 October 2026
 
  Red Griffin ATC is an Open Source project and it is licensed
  under the Gnu Public License v3 (GPLv3)
@@ -21,7 +21,7 @@
     <default-padding>4</default-padding>
     <layout>vbox</layout>
     <halign>center</halign>
-    <width>300</width>
+    <width>420</width>
 
     <text>
         <label>About</label>
@@ -34,13 +34,17 @@
     </text>
 
     <text>
-        <label>Version 2.5.0 - 25 October 2026</label>
+        <label>Unofficial remaster</label>
+    </text>
+
+    <text>
+        <label>Version 2.6.1 - 26 October 2026</label>
     </text>
 
     <hrule />
 
     <text>
-        <label>Written by</label>
+        <label>Original add-on by</label>
     </text>
 
     <text>
@@ -54,7 +58,11 @@
     <hrule />
 
     <text>
-	<label>URL: https://sourceforge.net/projects/red-griffin-atc</label>
+        <label>Remaster: github.com/thomasnullpunkt/RedGriffinATC-revisited</label>
+    </text>
+
+    <text>
+        <label>Original project: sourceforge.net/projects/red-griffin-atc</label>
     </text>
 
     <hrule />

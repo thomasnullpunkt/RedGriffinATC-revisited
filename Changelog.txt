@@ -1,3 +1,8 @@
+Changelog 2.6.1 - 26 October 2026
+
+- Clearly identify the project as an unofficial remaster and credit the original author across the add-on, metadata and download pages
+- Refresh the installable package with the updated project identity; ATC behavior is unchanged
+
 Changelog 2.6.0 - 26 October 2026
 
 - Add non-repeating phrase variants for common ground, departure, approach, landing and emergency calls
